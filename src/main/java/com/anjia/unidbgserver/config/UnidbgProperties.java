@@ -24,5 +24,5 @@ public class UnidbgProperties {
     /**
      * 是否使用异步多线程
      */
-    boolean async = true;
+    boolean async = false;
 }
