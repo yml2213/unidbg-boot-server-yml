@@ -30,14 +30,19 @@ import com.github.unidbg.linux.android.AndroidEmulatorBuilder;
 import com.github.unidbg.linux.android.AndroidResolver;
 import com.github.unidbg.linux.android.dvm.*;
 import com.github.unidbg.memory.Memory;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.core.io.support.ResourcePatternResolver;
 
 import java.io.File;
 import java.io.IOException;
 
 @Slf4j
-public class PujiSigService extends AbstractJni  {
+public class PujiSigService extends AbstractJni {
 
     private final static String TT_ENCRYPT_LIB_PATH = "data/apks/so/libcore.so";
+
+    private final static String PUJI_APK_PATH = "apks/puji.apk";
     private final AndroidEmulator emulator;
     private final VM vm;
     private final Module module;
@@ -45,7 +50,7 @@ public class PujiSigService extends AbstractJni  {
     private final Boolean DEBUG_FLAG;
 
     @SneakyThrows
-   public  PujiSigService(UnidbgProperties unidbgProperties) {
+    public PujiSigService(UnidbgProperties unidbgProperties) {
         DEBUG_FLAG = unidbgProperties.isVerbose();
         // 创建模拟器实例，要模拟32位或者64位，在这里区分
 //        emulator = AndroidEmulatorBuilder.for32Bit().setProcessName("com.kwai.thanos").build(); // 创建模拟器实例
@@ -69,9 +74,12 @@ public class PujiSigService extends AbstractJni  {
         final Memory memory = emulator.getMemory();
         // 设置系统类库解析
         memory.setLibraryResolver(new AndroidResolver(23));
+        ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
+        Resource pujiApkPath = resourcePatternResolver.getResource(PUJI_APK_PATH);
+
 
         // 创建Android虚拟机  传入 apk文件 可以过部分签名校验
-        vm = emulator.createDalvikVM(new File("src/main/resources/apks/puji.apk"));
+        vm = emulator.createDalvikVM(pujiApkPath.getFile());
         // 设置是否打印Jni调用细节
         vm.setVerbose(unidbgProperties.isVerbose());
 
@@ -115,7 +123,7 @@ public class PujiSigService extends AbstractJni  {
         System.out.println("***************");
 
 
-        return ret.toString();
+        return ret.getValue();
 
     }
 
@@ -130,7 +138,9 @@ public class PujiSigService extends AbstractJni  {
 
         }
         return super.callObjectMethodV(vm, dvmObject, signature, vaList);
-    };
+    }
+
+    ;
 //    public static void main(String[] args) throws Exception {
 //        PujiSigService test = new PujiSigService();
 //        System.out.println(test.getClock());

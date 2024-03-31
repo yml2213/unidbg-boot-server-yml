@@ -83,7 +83,7 @@ public class PujiSigServiceWorker extends Worker {
                 sig = this.doWork(str);
             }
         }
-        return sig;
+        return CompletableFuture.completedFuture(sig);
     }
 
     private String doWork(String str) {

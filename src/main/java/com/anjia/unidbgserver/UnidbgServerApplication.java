@@ -47,10 +47,7 @@ public class UnidbgServerApplication {
         log.info("\n----------------------------------------------------------\n\t"
                 + "应用: \t\t{} 已启动!\n\t"
                 + "地址: \t\thttp://{}:{}{}\n\t"
-                + "演示访问: \tcurl http://{}:{}{}api/tt-encrypt/encrypt (linux)\n\t"
-                + "演示访问: \thttp://{}:{}{}api/tt-encrypt/encrypt (windows: 浏览器直接打开)\n\t"
-                + "常见问题: \thttps://github.com/anjia0532/unidbg-boot-server/blob/main/QA.md\n\t"
-                + "配置文件: \t{}\n----------------------------------------------------------",
+                + "测试访问: \tcurl http://{}:{}{}api/get\n\t",
             StringUtils.defaultIfBlank(env.getProperty(SPRING_APPLICATION_NAME), DEFAULT_APPLICATION_NAME),
             hostAddress,
             serverPort,
