@@ -1,6 +1,7 @@
 package com.anjia.unidbgserver.service;
 
 import com.anjia.unidbgserver.config.UnidbgProperties;
+import com.anjia.unidbgserver.response.enums.BussinsesEnum;
 import com.github.unidbg.worker.Worker;
 import com.github.unidbg.worker.WorkerPool;
 import com.github.unidbg.worker.WorkerPoolFactory;
@@ -20,7 +21,8 @@ public class PujiSigServiceWorker extends Worker {
 
     private UnidbgProperties unidbgProperties;
     private WorkerPool pool;
-    private TTEncryptService ttEncryptService;
+
+    private PujiSig3Service pujiSig3Service;
 
     private PujiSigService pujiSigService;
 
@@ -48,8 +50,7 @@ public class PujiSigServiceWorker extends Worker {
             log.info("线程池为:{}", Math.max(poolSize, 4));
         } else {
             this.pujiSigService = new PujiSigService(unidbgProperties);
-
-//            this.ttEncryptService = new TTEncryptService(unidbgProperties);
+            this.pujiSig3Service = new PujiSig3Service(unidbgProperties);
         }
     }
 
@@ -60,12 +61,12 @@ public class PujiSigServiceWorker extends Worker {
         unidbgProperties.setVerbose(verbose);
         log.info("是否启用动态引擎:{},是否打印详细信息:{}", dynarmic, verbose);
         this.pujiSigService = new PujiSigService(unidbgProperties);
-//        this.ttEncryptService = new TTEncryptService(unidbgProperties);
+        this.pujiSig3Service = new PujiSig3Service(unidbgProperties);
     }
 
     @Async
     @SneakyThrows
-    public CompletableFuture<String>  getSig(String str) {
+    public CompletableFuture<String> getSign(String str, BussinsesEnum bussinsesEnum) {
 
         PujiSigServiceWorker worker;
         String sig;
@@ -74,21 +75,29 @@ public class PujiSigServiceWorker extends Worker {
                 if ((worker = pool.borrow(2, TimeUnit.SECONDS)) == null) {
                     continue;
                 }
-                sig = worker.doWork(str);
+                sig = worker.doWork(str,bussinsesEnum);
                 pool.release(worker);
                 break;
             }
         } else {
             synchronized (this) {
-                sig = this.doWork(str);
+                sig = this.doWork(str,bussinsesEnum);
             }
         }
         return CompletableFuture.completedFuture(sig);
     }
 
-    private String doWork(String str) {
-        return pujiSigService.getClock(str);
-//        return ttEncryptService.ttEncrypt(body);
+
+    private String doWork(String str, BussinsesEnum bussinsesEnum) {
+        int code = bussinsesEnum.getCode();
+        if (code == BussinsesEnum.GET_SIG.getCode()){
+            return pujiSigService.getClock(str);
+        }else if(code == BussinsesEnum.GET_SIG3.getCode()){
+            return pujiSig3Service.get_NS_sig3(str);
+        }
+        return "";
+
+
     }
 
     @SneakyThrows

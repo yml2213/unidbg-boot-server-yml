@@ -45,8 +45,6 @@ public class PujiSigService extends AbstractJni {
     private final static String PUJI_APK_PATH = "apks/puji.apk";
     private final AndroidEmulator emulator;
     private final VM vm;
-    private final Module module;
-    private final DvmClass TTEncryptUtils;
     private final Boolean DEBUG_FLAG;
 
     @SneakyThrows
@@ -59,16 +57,6 @@ public class PujiSigService extends AbstractJni {
         if (unidbgProperties.isDynarmic()) {
             builder.addBackendFactory(new DynarmicFactory(true));
         }
-
-//        vm = emulator.createDalvikVM(new File("unidbg-android/src/test/java/com/puji/puji.apk")); // 创建Android虚拟机
-//        DalvikModule dm = vm.loadLibrary(new File("unidbg-android/src/test/java/com/puji/libcore.so"), true); // 加载so到虚拟内存
-//        module = dm.getModule(); //获取本SO模块的句柄
-//
-//        vm.setJni(this);
-////        vm.setVerbose(true);   // 打印日志
-//        dm.callJNI_OnLoad(emulator);
-
-
         emulator = builder.build();
         // 模拟器的内存操作接口
         final Memory memory = emulator.getMemory();
@@ -76,8 +64,6 @@ public class PujiSigService extends AbstractJni {
         memory.setLibraryResolver(new AndroidResolver(23));
         ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
         Resource pujiApkPath = resourcePatternResolver.getResource(PUJI_APK_PATH);
-
-
         // 创建Android虚拟机  传入 apk文件 可以过部分签名校验
         vm = emulator.createDalvikVM(pujiApkPath.getFile());
         // 设置是否打印Jni调用细节
@@ -89,11 +75,8 @@ public class PujiSigService extends AbstractJni {
         // 手动执行JNI_OnLoad函数
         dm.callJNI_OnLoad(emulator);
         // 加载好的libttEncrypt.so对应为一个模块  //获取本SO模块的句柄
-        module = dm.getModule();
-
         dm.callJNI_OnLoad(emulator);
 
-        TTEncryptUtils = vm.resolveClass("com/yxcorp/gifshow/util/CPU");
     }
 
     public void destroy() throws IOException {
@@ -140,11 +123,7 @@ public class PujiSigService extends AbstractJni {
         return super.callObjectMethodV(vm, dvmObject, signature, vaList);
     }
 
-    ;
-//    public static void main(String[] args) throws Exception {
-//        PujiSigService test = new PujiSigService();
-//        System.out.println(test.getClock());
-//    }
+
 
 
 }

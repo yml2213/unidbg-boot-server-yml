@@ -47,7 +47,8 @@ public enum ErrorCodeEnum {
   GATEWAY_TIMEOUT(HttpStatus.GATEWAY_TIMEOUT, 504, "网关超时，网关服务器未能及时响应请求"),
 
   // 未知错误
-  UNKNOWN(HttpStatus.INTERNAL_SERVER_ERROR, -999, "未知错误");
+  UNKNOWN(HttpStatus.INTERNAL_SERVER_ERROR, -999, "未知错误"),
+  UNKNOWN_OPERATION_TYPE(HttpStatus.INTERNAL_SERVER_ERROR, -998, "未知操作类型");
 
   private final HttpStatus httpStatus;
   private final int code;
