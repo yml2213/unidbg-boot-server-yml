@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.print.attribute.standard.PDLOverrideSupported;
+
 /**
  * 单元测试
  *
@@ -36,11 +38,7 @@ class PujiSigServiceTest {
     @Autowired
     private PujiSigController pujiSigController;
 
-    private MockMvc mockMvc;
-    @Before
-    public void setUp(){
-        mockMvc = MockMvcBuilders.standaloneSetup(pujiSigController).build();
-    }
+
     @SneakyThrows @Test
     void testServiceGetTTEncrypt() {
 
@@ -51,9 +49,12 @@ class PujiSigServiceTest {
         log.info(data);
     }
 
-//    @SneakyThrows @Test
-//    void testWorkerGetTTEncrypt() {
-//        byte[] data = pujisigServiceWorker.getSig(null, null).get();
-//        log.info(new String(data));
-//    }
+    @SneakyThrows @Test
+    void testSig3() {
+        PujiSig3Service pujiSig3Service = new PujiSig3Service(properties);
+
+        pujiSig3Service.initNative();
+        String nsSig3 = pujiSig3Service.get_NS_sig3("/dasddsaas");
+        log.info(nsSig3);
+    }
 }

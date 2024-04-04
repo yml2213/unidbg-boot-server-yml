@@ -3,6 +3,8 @@ package com.anjia.unidbgserver.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
+import java.util.List;
+
 /**
  * unidbg配置类
  *
@@ -25,4 +27,8 @@ public class UnidbgProperties {
      * 是否使用异步多线程
      */
     boolean async = false;
+
+    List<String> soPath;
+
+
 }

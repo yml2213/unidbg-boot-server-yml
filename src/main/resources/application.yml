@@ -6,6 +6,9 @@ application:
     dynarmic: false
     verbose: false
     async: false
+    soPath:
+        - 'libkwsgmain.so'
+        - 'libcore.so'
 
 spring:
   application:

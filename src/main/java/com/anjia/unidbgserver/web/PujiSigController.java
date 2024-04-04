@@ -1,5 +1,6 @@
 package com.anjia.unidbgserver.web;
 
+import com.anjia.unidbgserver.response.enums.BussinsesEnum;
 import com.anjia.unidbgserver.response.enums.ErrorCodeEnum;
 import com.anjia.unidbgserver.response.Result;
 import com.anjia.unidbgserver.service.PujiSigServiceWorker;
@@ -39,11 +40,6 @@ public class PujiSigController {
 
     /**
      *  获取 pujisig
-     * <p>
-     * public byte[] ttEncrypt(@RequestParam(required = false) String key1, @RequestBody String body)
-     * // 这是接收一个url参数，名为key1,接收一个post或者put请求的body参数
-     * key1是选填参数，不写也不报错，值为,body只有在请求方法是POST时才有，GET没有
-     *
      * @return 结果
      */
     @PostMapping("/puji-sig")
@@ -54,11 +50,24 @@ public class PujiSigController {
         if (StringUtils.isEmpty(str)){
             Result.fail(ErrorCodeEnum.BAD_REQUEST);
         }
-        String  sig = pujisigServiceWorker.getSig(str).get();
+        String  sig = pujisigServiceWorker.getSign(str, BussinsesEnum.GET_SIG).get();
         log.info("======================");
         log.info(sig);
         return Result.ok(sig);
+    }
 
+    @PostMapping("/puji-sig3")
+    @SneakyThrows
+    public Result<String> getSig3(@RequestBody  Map<String,String> map) {
+        System.out.println(map);
+        String str = map.get("path");
+        if (StringUtils.isEmpty(str)){
+            Result.fail(ErrorCodeEnum.BAD_REQUEST);
+        }
+        String  sig = pujisigServiceWorker.getSign(str, BussinsesEnum.GET_SIG3).get();
+        log.info("======================");
+        log.info(sig);
+        return Result.ok(sig);
     }
 
 
