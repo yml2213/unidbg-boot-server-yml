@@ -75,13 +75,13 @@ public class PujiSigServiceWorker extends Worker {
                 if ((worker = pool.borrow(2, TimeUnit.SECONDS)) == null) {
                     continue;
                 }
-                sig = worker.doWork(str,bussinsesEnum);
+                sig = worker.doWork(str, bussinsesEnum);
                 pool.release(worker);
                 break;
             }
         } else {
             synchronized (this) {
-                sig = this.doWork(str,bussinsesEnum);
+                sig = this.doWork(str, bussinsesEnum);
             }
         }
         return CompletableFuture.completedFuture(sig);
@@ -90,9 +90,9 @@ public class PujiSigServiceWorker extends Worker {
 
     private String doWork(String str, BussinsesEnum bussinsesEnum) {
         int code = bussinsesEnum.getCode();
-        if (code == BussinsesEnum.GET_SIG.getCode()){
+        if (code == BussinsesEnum.GET_SIG.getCode()) {
             return pujiSigService.getClock(str);
-        }else if(code == BussinsesEnum.GET_SIG3.getCode()){
+        } else if (code == BussinsesEnum.GET_SIG3.getCode()) {
             return pujiSig3Service.get_NS_sig3(str);
         }
         return "";
@@ -101,7 +101,8 @@ public class PujiSigServiceWorker extends Worker {
     }
 
     @SneakyThrows
-    @Override public void destroy() {
+    @Override
+    public void destroy() {
         pujiSigService.destroy();
     }
 }
