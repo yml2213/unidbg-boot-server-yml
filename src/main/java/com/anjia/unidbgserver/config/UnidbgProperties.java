@@ -26,7 +26,6 @@ public class UnidbgProperties {
      */
     boolean async = false;
 
-    String soPrefix;
 
     String apkPath;
 

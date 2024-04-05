@@ -6,7 +6,6 @@ application:
     dynarmic: false
     verbose: false
     async: false
-    soPrefix: data/apks/so/
     apkPath: apks/puji.apk
 spring:
     task:
