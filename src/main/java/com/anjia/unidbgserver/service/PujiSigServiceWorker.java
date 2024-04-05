@@ -1,7 +1,6 @@
 package com.anjia.unidbgserver.service;
 
 import com.anjia.unidbgserver.config.UnidbgProperties;
-import com.anjia.unidbgserver.exception.BusinessException;
 import com.anjia.unidbgserver.response.enums.BussinsesEnum;
 import com.anjia.unidbgserver.service.original.PujiClientSignService;
 import com.anjia.unidbgserver.service.unidbg.PujiSig3Service;
@@ -16,7 +15,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -28,9 +26,10 @@ public class PujiSigServiceWorker extends Worker {
     private WorkerPool pool;
 
     private PujiSig3Service pujiSig3Service;
-    private PujiClientSignService pujiClientSignService;
 
     private PujiSigService pujiSigService;
+
+    private PujiClientSignService pujiClientSignService;
 
     @Autowired
     public void init(UnidbgProperties unidbgProperties) {
@@ -50,15 +49,14 @@ public class PujiSigServiceWorker extends Worker {
                                 @Value("${spring.task.execution.pool.core-size}") int poolSize) {
         super(WorkerPoolFactory.create(PujiSigServiceWorker::new, Runtime.getRuntime().availableProcessors()));
         this.unidbgProperties = unidbgProperties;
+        log.info("是否启用动态引擎:{},是否打印详细信息:{}", unidbgProperties.isDynarmic(), unidbgProperties.isVerbose());
+
         if (this.unidbgProperties.isAsync()) {
-            log.info("是否启用动态引擎:{},是否打印详细信息:{}", unidbgProperties.isDynarmic(), unidbgProperties.isVerbose());
             pool = WorkerPoolFactory.create(pool -> new PujiSigServiceWorker(unidbgProperties, pool), Math.max(poolSize, 4));
-            log.info("线程池最大数量建议为30以下");
             log.info("线程池为:{}", Math.max(poolSize, 4));
         } else {
-
             this.pujiSigService = new PujiSigService(unidbgProperties);
-            //this.pujiSig3Service = new PujiSig3Service(unidbgProperties);
+            this.pujiSig3Service = new PujiSig3Service(unidbgProperties);
             this.pujiClientSignService = new PujiClientSignService();
         }
     }
@@ -110,14 +108,10 @@ public class PujiSigServiceWorker extends Worker {
 
     }
 
+    @SneakyThrows
     @Override
     public void destroy() {
-        try {
-            this.pujiSigService.destroy();
-            this.pujiSig3Service.destroy();
-        } catch (IOException e) {
-            throw new BusinessException(999, "模拟器关闭异常");
-        }
-
+        pujiSigService.destroy();
+        pujiSig3Service.destroy();
     }
 }

@@ -13,6 +13,6 @@ spring:
         execution:
             pool:
                 allow-core-thread-timeout: true
-                core-size: 8
+                core-size: 4
                 keep-alive: 60s
-                max-size: 8
+                max-size: 4
