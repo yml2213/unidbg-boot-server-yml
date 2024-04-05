@@ -47,7 +47,7 @@ public class PujiSigController {
      */
     @PostMapping("/pujiSig")
     @SneakyThrows
-    public Result getSig(@RequestBody @Validated FormRequest formRequest) {
+    public Result<Object> getSig(@RequestBody @Validated FormRequest formRequest) {
         String str = formRequest.getStr();
         String key = formRequest.getKey();
         String opType = formRequest.getOpType();

@@ -1,12 +1,6 @@
 server:
     port: 9999
 
-application:
-    unidbg:
-        dynarmic: true
-        verbose: false
-        async: true
-        soPrefix: data/apks/so/
 
 
 spring:

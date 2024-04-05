@@ -8,7 +8,7 @@ application:
         async: false
         soPrefix: data/apks/so/
         apkPath: apks/puji.apk
-
+spring:
     task:
         execution:
             pool:
