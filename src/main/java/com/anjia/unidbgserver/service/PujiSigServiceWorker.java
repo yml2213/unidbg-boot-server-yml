@@ -23,6 +23,7 @@ public class PujiSigServiceWorker extends Worker {
     private WorkerPool pool;
 
     private PujiSig3Service pujiSig3Service;
+    private PujiClientSignService pujiClientSignService;
 
     private PujiSigService pujiSigService;
 
@@ -51,6 +52,7 @@ public class PujiSigServiceWorker extends Worker {
         } else {
             this.pujiSigService = new PujiSigService(unidbgProperties);
             this.pujiSig3Service = new PujiSig3Service(unidbgProperties);
+            this.pujiClientSignService = new PujiClientSignService();
         }
     }
 
@@ -62,6 +64,7 @@ public class PujiSigServiceWorker extends Worker {
         log.info("是否启用动态引擎:{},是否打印详细信息:{}", dynarmic, verbose);
         this.pujiSigService = new PujiSigService(unidbgProperties);
         this.pujiSig3Service = new PujiSig3Service(unidbgProperties);
+        this.pujiClientSignService = new PujiClientSignService();
     }
 
     @Async
@@ -94,6 +97,8 @@ public class PujiSigServiceWorker extends Worker {
             return pujiSigService.getClock(str);
         } else if (code == BussinsesEnum.GET_SIG3.getCode()) {
             return pujiSig3Service.get_NS_sig3(str);
+        } else if (code == BussinsesEnum.GET_CLIENTSIGN.getCode()) {
+            return pujiClientSignService.get_ClientSign(str);
         }
         return "";
 

@@ -16,6 +16,7 @@ public enum BussinsesEnum {
 
     GET_SIG(10000,"获取sig操作"),
     GET_SIG3(10001,"获取sig3操作"),
+    GET_CLIENTSIGN(10002,"获取ClientSign操作"),
 
 
 
