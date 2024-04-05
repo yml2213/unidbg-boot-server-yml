@@ -3,7 +3,6 @@ package com.anjia.unidbgserver.service;
 import com.anjia.unidbgserver.config.UnidbgProperties;
 import com.anjia.unidbgserver.service.unidbg.PujiSig3Service;
 import com.anjia.unidbgserver.service.unidbg.PujiSigService;
-import com.anjia.unidbgserver.web.PujiSigController;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -29,9 +28,6 @@ class PujiSigServiceTest {
     @Autowired
     UnidbgProperties properties;
 
-    @Autowired
-    private PujiSigController pujiSigController;
-
 
     @SneakyThrows
     @Test
@@ -55,4 +51,8 @@ class PujiSigServiceTest {
         String nsSig3 = pujisig3Service.getNsSig3("/dasddsaas");
         log.info(nsSig3);
     }
+
+
+
+
 }
