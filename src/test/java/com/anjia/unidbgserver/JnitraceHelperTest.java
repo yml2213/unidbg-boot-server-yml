@@ -99,7 +99,7 @@ public class JnitraceHelperTest {
             if (m.getGenericParameterTypes().length == 2) {
                 builder.append(m.invoke(this, entry.getValue(), traces));
             } else if (m.getGenericParameterTypes().length == 1) {
-                builder.append( m.invoke(this, entry.getValue()));
+                builder.append(m.invoke(this, entry.getValue()));
             }
         }
         //builder.append(printCallStaticObjectMethodV(methodTraces.get("JNIEnv->CallStaticObjectMethodV")));

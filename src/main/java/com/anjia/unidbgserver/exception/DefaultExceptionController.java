@@ -25,7 +25,6 @@ public class DefaultExceptionController extends AbstractErrorController {
     }
 
 
-
     @RequestMapping(value = ERROR_PATH)
     public Result<String> error(HttpServletRequest request) {
         WebRequest webRequest = new ServletWebRequest(request);
@@ -40,7 +39,7 @@ public class DefaultExceptionController extends AbstractErrorController {
             return Result.fail(Integer.parseInt(status.toString()), error);
         }
 
-            return Result.fail(ErrorCodeEnum.INTERNAL_SERVER_ERROR.getCode(),ErrorCodeEnum.INTERNAL_SERVER_ERROR.getMessage());
+        return Result.fail(ErrorCodeEnum.INTERNAL_SERVER_ERROR.getCode(), ErrorCodeEnum.INTERNAL_SERVER_ERROR.getMessage());
     }
 
     private Throwable getError(WebRequest webRequest) {

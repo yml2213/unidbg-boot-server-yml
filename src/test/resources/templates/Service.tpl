@@ -1,7 +1,7 @@
 package com.anjia.unidbgserver.service;
 
 import com.anjia.unidbgserver.config.UnidbgProperties;
-import com.anjia.unidbgserver.utils.TempFileUtils;
+import com.anjia.unidbgserver.utils.FileUtils;
 import com.github.unidbg.AndroidEmulator;
 import com.github.unidbg.Emulator;
 import com.github.unidbg.EmulatorBuilder;

@@ -35,9 +35,9 @@ public class PrintUtils {
      */
     public static void printFileResolve(String pathname, String localPathName) {
         String builder = "\n" + "            case \"" + pathname + "\": {\n" +
-                "                return FileResult.success(new SimpleFileIO(oflags, TempFileUtils.getTempFile(\""
-                + StringUtils.defaultString(localPathName) + "\"), pathname));\n" +
-                "            }";
+            "                return FileResult.success(new SimpleFileIO(oflags, FileUtils.getTempFile(\""
+            + StringUtils.defaultString(localPathName) + "\"), pathname));\n" +
+            "            }";
         log.debug(builder);
     }
 
