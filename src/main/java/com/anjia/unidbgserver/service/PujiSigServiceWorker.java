@@ -96,9 +96,11 @@ public class PujiSigServiceWorker extends Worker {
         if (code == BussinsesEnum.GET_SIG.getCode()) {
             return pujiSigService.getClock(str);
         } else if (code == BussinsesEnum.GET_SIG3.getCode()) {
-            return pujiSig3Service.get_NS_sig3(str);
-        } else if (code == BussinsesEnum.GET_CLIENTSIGN.getCode()) {
-            return pujiClientSignService.get_ClientSign(str);
+            return pujiSig3Service.getNsSig3(str);
+        } else if (code == BussinsesEnum.GET_CLIENT_SIGN.getCode()) {
+            return pujiClientSignService.getClientSign(str);
+        } else if (code == BussinsesEnum.GET_SIG3_64.getCode()) {
+            return pujiSig3Service.getNsSig3(str, "010a11c6-f2cb-4016-887d-0d958aef1534");
         }
         return "";
 

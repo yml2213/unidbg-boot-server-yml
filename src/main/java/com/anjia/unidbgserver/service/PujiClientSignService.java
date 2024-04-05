@@ -13,7 +13,7 @@ import java.util.Base64;
  */
 @Slf4j
 public class PujiClientSignService {
-    public String get_ClientSign(String str) {
+    public String getClientSign(String str) {
         byte[] bArr;
         String str2 = "";
 

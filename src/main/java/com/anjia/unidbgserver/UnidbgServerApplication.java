@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
@@ -17,7 +18,7 @@ import java.util.List;
 @EnableAsync(proxyTargetClass = true)
 @ConfigurationPropertiesScan
 @EnableConfigurationProperties
-@SpringBootApplication(scanBasePackages = {"com.anjia"})
+@SpringBootApplication(scanBasePackages = {"com.anjia"},exclude = {ThymeleafAutoConfiguration.class})
 public class UnidbgServerApplication {
 
     private static final String SERVER_PORT = "server.port";

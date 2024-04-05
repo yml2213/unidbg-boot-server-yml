@@ -6,6 +6,13 @@ application:
     dynarmic: false
     verbose: false
     async: false
-    soPath:
-        - 'libkwsgmain.so'
-        - 'libcore.so'
+    soPrefix: data/apks/so/
+    apkPath: apks/puji.apk
+spring:
+    task:
+        execution:
+            pool:
+                allow-core-thread-timeout: true
+                core-size: 8
+                keep-alive: 60s
+                max-size: 8

@@ -1,7 +1,6 @@
 package com.anjia.unidbgserver.response.enums;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 /**
  * 错误码枚举类
@@ -13,10 +12,10 @@ public enum BussinsesEnum {
     /**
      * 业务操作码
      */
-
-    GET_SIG(10000,"获取sig操作"),
-    GET_SIG3(10001,"获取sig3操作"),
-    GET_CLIENTSIGN(10002,"获取ClientSign操作"),
+    GET_SIG(10000, "获取sig操作"),
+    GET_SIG3(10001, "获取sig3操作"),
+    GET_CLIENT_SIGN(10002,"获取ClientSign操作"),
+    GET_SIG3_64(10003,"获取sig364位操作"),
 
 
 

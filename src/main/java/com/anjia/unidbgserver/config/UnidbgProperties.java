@@ -3,8 +3,6 @@ package com.anjia.unidbgserver.config;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-import java.util.List;
-
 /**
  * unidbg配置类
  *
@@ -28,7 +26,9 @@ public class UnidbgProperties {
      */
     boolean async = false;
 
-    List<String> soPath;
+    String soPrefix;
+
+    String apkPath;
 
 
 }
