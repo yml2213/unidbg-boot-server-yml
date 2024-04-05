@@ -1,12 +1,13 @@
 server:
-    port: 9999
+    port: 9888
 
 application:
     unidbg:
-        dynarmic: false
+        dynarmic: true
         verbose: false
-        async: false
-
+        async: true
+        soPrefix: data/apks/so/
+        apkPath: apks/puji.apk
 spring:
     task:
         execution:

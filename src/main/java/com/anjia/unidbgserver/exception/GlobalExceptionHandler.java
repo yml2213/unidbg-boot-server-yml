@@ -18,11 +18,11 @@ public class GlobalExceptionHandler {
     /**
      * 未知异常
      */
-    @ExceptionHandler(value = Exception.class)
-    public Result systemExceptionHandler(Exception e) {
-        log.error("system exception！The reason is：{}", e.getMessage(), e);
-        return Result.fail(ErrorCodeEnum.UNKNOWN);
-    }
+    //@ExceptionHandler(value = Exception.class)
+    //public Result systemExceptionHandler(Exception e) {
+    //    log.error("system exception！The reason is：{}", e.getMessage(), e);
+    //    return Result.fail(ErrorCodeEnum.UNKNOWN);
+    //}
 
     /**
      * validation参数校验异常
@@ -42,12 +42,13 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = BusinessException.class)
     public Result<ErrorCodeEnum> businessExceptionHandler(BusinessException e) {
-        log.info("business exception！The reason is：{}", e.getMessage(), e);
+        log.info("business exception！The reason is：{}", e.getMessage());
         return Result.fail(e.getErrorCode(), e.getMessage());
     }
+
     @ExceptionHandler(value = HttpMessageNotReadableException.class)
     public Result<ErrorCodeEnum> httpMessageNotReadableExceptionHandler(HttpMessageNotReadableException e) {
-        return Result.fail(ErrorCodeEnum.BAD_REQUEST.getCode(),ErrorCodeEnum.BAD_REQUEST.getMessage());
+        return Result.fail(ErrorCodeEnum.BAD_REQUEST.getCode(), ErrorCodeEnum.BAD_REQUEST.getMessage());
     }
 
     /**
@@ -58,10 +59,6 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
         return Result.fail(-1, String.format("不支持'%s'请求", e.getMethod()));
     }
-
-
-
-
 
 
 }

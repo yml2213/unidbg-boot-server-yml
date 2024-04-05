@@ -20,7 +20,8 @@ import java.util.Map;
  * @since 2021-09-13 17:55
  */
 public class ThymeleafUtils {
-    @SneakyThrows public static void generateByTemplate(String templateName, Map<String, Object> vars, String destFile) {
+    @SneakyThrows
+    public static void generateByTemplate(String templateName, Map<String, Object> vars, String destFile) {
         TemplateEngine templateEngine = new TemplateEngine();
         ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
         templateResolver.setPrefix("templates/");

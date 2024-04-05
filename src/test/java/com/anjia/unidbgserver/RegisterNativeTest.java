@@ -25,7 +25,7 @@ import java.util.Objects;
  */
 @Slf4j
 @SpringBootTest
-public class RegisterNativeTest  extends AbstractJni {
+public class RegisterNativeTest extends AbstractJni {
 
     private AndroidEmulator emulator;
     private VM vm;
@@ -35,6 +35,7 @@ public class RegisterNativeTest  extends AbstractJni {
 
         // 写你代码,不会写的，参考下面的test()
     }
+
     //@Test
     public void test() throws IOException {
         // 创建模拟器实例，要模拟32位或者64位，在这里区分
@@ -51,7 +52,7 @@ public class RegisterNativeTest  extends AbstractJni {
         vm.setJni(this);
 
 
-        List<String> denyList = Arrays.asList("libnodelibnode.so", "libv8.so", "libmtmap.so","libttEncrypt.so");
+        List<String> denyList = Arrays.asList("libnodelibnode.so", "libv8.so", "libmtmap.so", "libttEncrypt.so");
 
         for (File file : Objects.requireNonNull(new File("src/main/resources/data/apks/so/").listFiles())) {
             if (denyList.contains(file.getName())) {

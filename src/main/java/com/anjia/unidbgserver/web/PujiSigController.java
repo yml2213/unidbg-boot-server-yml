@@ -35,37 +35,34 @@ public class PujiSigController {
      * @return pong  有效
      */
     @GetMapping("/get")
-    public String get(){
+    public String get() {
         return "pong";
     }
 
 
     /**
-     *  获取 pujisig
+     * 获取 pujisig
+     *
      * @return 结果
      */
     @PostMapping("/pujiSig")
     @SneakyThrows
-    public Result getSig(@RequestBody @Validated  FormRequest formRequest) {
+    public Result getSig(@RequestBody @Validated FormRequest formRequest) {
         String str = formRequest.getStr();
         String key = formRequest.getKey();
-        String opType= formRequest.getOpType();
+        String opType = formRequest.getOpType();
         BussinsesEnum bussinsesEnum = BussinsesEnum.valueOf(opType);
-        if (ObjectUtils.isEmpty(bussinsesEnum)){
-           return  Result.fail(ErrorCodeEnum.UNKNOWN_OPERATION_TYPE);
+        if (ObjectUtils.isEmpty(bussinsesEnum)) {
+            return Result.fail(ErrorCodeEnum.UNKNOWN_OPERATION_TYPE);
         }
-        if (!"123456".equals(key)){
-           return  Result.fail(ErrorCodeEnum.UNAUTHORIZED);
+        if (!"123456".equals(key)) {
+            return Result.fail(ErrorCodeEnum.UNAUTHORIZED);
         }
-        String  sig = pujisigServiceWorker.getSign(str, bussinsesEnum).get();
-        log.info("======================");
-        log.info(sig);
+        String sig = pujisigServiceWorker.getSign(str, bussinsesEnum).get();
         return Result.ok(sig);
 
 
     }
-
-
 
 
 }

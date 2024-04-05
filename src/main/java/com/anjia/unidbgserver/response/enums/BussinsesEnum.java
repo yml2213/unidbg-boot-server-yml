@@ -1,7 +1,6 @@
 package com.anjia.unidbgserver.response.enums;
 
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 /**
  * 错误码枚举类
@@ -14,35 +13,27 @@ public enum BussinsesEnum {
      * 业务操作码
      */
 
-    GET_SIG(10000,"获取sig操作"),
-    GET_SIG3(10001,"获取sig3操作"),
+    GET_SIG(10000, "获取sig操作"),
+    GET_SIG3(10001, "获取sig3操作"),
     GET_CLIENTSIGN(10002,"获取ClientSign操作"),
-
-
-
-
-
+    GET_SIG3_64(10003,"获取sig364位操作"),
 
 
     ;
 
 
+    private final int code;
+    private final String message;
 
-  private final int code;
-  private final String message;
-
-  BussinsesEnum( int code, String message) {
-    this.code = code;
-    this.message = message;
-  }
-
+    BussinsesEnum(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
 
 
-
-
-  // 可以添加其他字段，如错误码分类、解决方案、建议等
-  // private final ErrorCodeCategory category;
-  // private final String solution;
-  // private final String suggestion;
+    // 可以添加其他字段，如错误码分类、解决方案、建议等
+    // private final ErrorCodeCategory category;
+    // private final String solution;
+    // private final String suggestion;
 
 }

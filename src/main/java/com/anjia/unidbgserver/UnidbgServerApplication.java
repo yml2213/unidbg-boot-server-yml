@@ -3,7 +3,9 @@ package com.anjia.unidbgserver;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.core.env.Environment;
@@ -17,7 +19,7 @@ import java.util.List;
 @EnableAsync(proxyTargetClass = true)
 @ConfigurationPropertiesScan
 @EnableConfigurationProperties
-@SpringBootApplication(scanBasePackages = {"com.anjia"})
+@SpringBootApplication(scanBasePackages = {"com.anjia"}, exclude = {ThymeleafAutoConfiguration.class})
 public class UnidbgServerApplication {
 
     private static final String SERVER_PORT = "server.port";
@@ -47,7 +49,7 @@ public class UnidbgServerApplication {
         log.info("\n----------------------------------------------------------\n\t"
                 + "应用: \t\t{} 已启动!\n\t"
                 + "地址: \t\thttp://{}:{}{}\n\t"
-                + "测试访问: \tcurl http://{}:{}{}api/get\n\t",
+                + "测试访问: \tcurl http://{}:{}{}api/get\t",
             StringUtils.defaultIfBlank(env.getProperty(SPRING_APPLICATION_NAME), DEFAULT_APPLICATION_NAME),
             hostAddress,
             serverPort,
@@ -59,6 +61,6 @@ public class UnidbgServerApplication {
             serverPort,
             contextPath,
             profiles);
-        log.info("\n----------------------------------------------------------\n");
+        //log.info("\n----------------------------------------------------------\n");
     }
 }

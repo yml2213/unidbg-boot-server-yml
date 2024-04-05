@@ -1,8 +1,8 @@
 server:
-  port: 9999
+    port: 9999
 
 application:
-  unidbg:
-    dynarmic: false
-    verbose: false
-    async: false
+    unidbg:
+        dynarmic: false
+        verbose: false
+        async: false

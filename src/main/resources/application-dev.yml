@@ -1,11 +1,18 @@
 server:
-  port: 9999
+    port: 9999
 
 application:
-  unidbg:
-    dynarmic: false
-    verbose: false
-    async: false
-    soPath:
-        - 'libkwsgmain.so'
-        - 'libcore.so'
+    unidbg:
+        dynarmic: false
+        verbose: false
+        async: false
+        soPrefix: data/apks/so/
+        apkPath: apks/puji.apk
+
+    task:
+        execution:
+            pool:
+                allow-core-thread-timeout: true
+                core-size: 8
+                keep-alive: 60s
+                max-size: 8
