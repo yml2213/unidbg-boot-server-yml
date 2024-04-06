@@ -19,7 +19,7 @@ import java.io.IOException;
 @Slf4j
 public class PujiSigService extends  AbstractJni{
 
-    private  static final  String SO_ENCRYPT_LIB_PATH = "libcore.so";
+    private  static final  String SO_ENCRYPT_LIB_PATH = "core";
 
     private final AndroidEmulator emulator;
     private final VM vm;
@@ -49,8 +49,8 @@ public class PujiSigService extends  AbstractJni{
         new JniGraphics(emulator, vm).register(memory);
         new AndroidModule(emulator, vm).register(memory);
         vm.setJni(this);
-        String soPath = unidbgProperties.getSoPrefix() + SO_ENCRYPT_LIB_PATH;
-        DalvikModule dm = vm.loadLibrary(FileUtils.getTempFile(soPath), true);
+//        String soPath = unidbgProperties.getSoPrefix() + SO_ENCRYPT_LIB_PATH;
+        DalvikModule dm = vm.loadLibrary(SO_ENCRYPT_LIB_PATH, true);
         // 手动执行JNI_OnLoad函数
         dm.callJNI_OnLoad(emulator);
         // 加载好的libttEncrypt.so对应为一个模块  //获取本SO模块的句柄

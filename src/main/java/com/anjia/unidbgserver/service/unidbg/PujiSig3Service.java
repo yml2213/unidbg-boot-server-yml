@@ -54,8 +54,8 @@ public class PujiSig3Service extends AbstractJni {
         new JniGraphics(emulator, vm).register(memory);
         new AndroidModule(emulator, vm).register(memory);
         vm.setJni(this);
-        String soPath = unidbgProperties.getSoPrefix() + SO_ENCRYPT_LIB_PATH;
-        DalvikModule dm = this.vm.loadLibrary(FileUtils.getTempFile(soPath), true);
+//        String soPath = unidbgProperties.getSoPrefix() + SO_ENCRYPT_LIB_PATH;
+        DalvikModule dm = this.vm.loadLibrary(SO_ENCRYPT_LIB_PATH, true);
         dm.callJNI_OnLoad(this.emulator);
         initNative();
         //String str = "1:0:0:0:0:0:0";
