@@ -72,7 +72,7 @@ public class PujiSig3Service extends AbstractJni {
         //    // 将数组重新拼接成字符串
         //    str = String.join(":", parts);
 
-        }
+    }
 
 
     public void initNative() {
@@ -138,73 +138,71 @@ public class PujiSig3Service extends AbstractJni {
     //}
 
 
-
-
     public String getNsSig3(String... strArr) {
 
 
-         String uuid = "";
-         boolean flag = false;
-         //64位
-         if (strArr.length > 1) {
-             uuid = strArr[1];
-             flag = true;
-         }
-         DvmClass dvmClass = vm.resolveClass("com/kuaishou/android/security/internal/dispatch/JNICLibrary");
-         DvmObject<?> context = vm.resolveClass("com/yxcorp/gifshow/App").newObject(null);
-         String methodSign = "doCommandNative(I[Ljava/lang/Object;)Ljava/lang/Object;";
-         log.info("_NS_sig3 start");
-         //通过方法名调用
+        String uuid = "";
+        boolean flag = false;
+        //64位
+        if (strArr.length > 1) {
+            uuid = strArr[1];
+            flag = true;
+        }
+        DvmClass dvmClass = vm.resolveClass("com/kuaishou/android/security/internal/dispatch/JNICLibrary");
+        DvmObject<?> context = vm.resolveClass("com/yxcorp/gifshow/App").newObject(null);
+        String methodSign = "doCommandNative(I[Ljava/lang/Object;)Ljava/lang/Object;";
+        log.info("_NS_sig3 start");
+        //通过方法名调用
         StringObject ret = dvmClass.callStaticJniMethodObject(emulator,
-             methodSign,
-             10413
-             , vm.addLocalObject(new ArrayObject(new ArrayObject(
-                 new StringObject(vm, "30")),
-                 new StringObject(vm, "d7b7d042-d4f2-4012-be60-d97ff2429c17"),
-                 DvmInteger.valueOf(vm, 0),
-               null,
-                 context,
-                 null,
-                    DvmBoolean.valueOf(vm, false),
-                 new StringObject(vm,"")
-             )));
+            methodSign,
+            10413
+            , vm.addLocalObject(new ArrayObject(new ArrayObject(
+                new StringObject(vm, "30")),
+                new StringObject(vm, "d7b7d042-d4f2-4012-be60-d97ff2429c17"),
+                DvmInteger.valueOf(vm, 0),
+                null,
+                context,
+                null,
+                DvmBoolean.valueOf(vm, false),
+                new StringObject(vm, "")
+            )));
 
-         String retValue = StrUtils.retSaveStr(ret);
-         //String encode = Base64.encode(retValue);
-         log.info("_NS_sig3={}", retValue);
-         return retValue;
+        String retValue = StrUtils.retSaveStr(ret);
+        //String encode = Base64.encode(retValue);
+        log.info("_NS_sig3={}", retValue);
+        return retValue;
 
 
-       // String uuid = "";
-       // boolean flag = false;
-       // //64位
-       // if (strArr.length > 1) {
-       //     uuid = strArr[1];
-       //     flag = true;
-       // }
-       // DvmClass dvmClass = vm.resolveClass("com/kuaishou/android/security/internal/dispatch/JNICLibrary");
-       // DvmObject<?> context = vm.resolveClass("com/yxcorp/gifshow/App").newObject(null);
-       // String methodSign = "doCommandNative(I[Ljava/lang/Object;)Ljava/lang/Object;";
-       // log.info("_NS_sig3 start");
-       // //通过方法名调用
-       //StringObject ret = dvmClass.callStaticJniMethodObject(emulator,
-       //     methodSign,
-       //     10418
-       //     , vm.addLocalObject(new ArrayObject(new ArrayObject(
-       //         new StringObject(vm, strArr[0])),
-       //         new StringObject(vm, "d7b7d042-d4f2-4012-be60-d97ff2429c17"),
-       //         DvmInteger.valueOf(vm, -1),
-       //         DvmBoolean.valueOf(vm, false),
-       //         context,
-       //         null,
-       //            DvmBoolean.valueOf(vm, ),
-       //         new StringObject(vm, "010a11c6-f2cb-4016-887d-0d958aef1534")
-       //     )));
-       //
-       // String retValue = StrUtils.retSaveStr(ret);
-       // //String encode = Base64.encode(retValue);
-       // log.info("_NS_sig3={}", retValue);
-       // return retValue;
+        // String uuid = "";
+        // boolean flag = false;
+        // //64位
+        // if (strArr.length > 1) {
+        //     uuid = strArr[1];
+        //     flag = true;
+        // }
+        // DvmClass dvmClass = vm.resolveClass("com/kuaishou/android/security/internal/dispatch/JNICLibrary");
+        // DvmObject<?> context = vm.resolveClass("com/yxcorp/gifshow/App").newObject(null);
+        // String methodSign = "doCommandNative(I[Ljava/lang/Object;)Ljava/lang/Object;";
+        // log.info("_NS_sig3 start");
+        // //通过方法名调用
+        //StringObject ret = dvmClass.callStaticJniMethodObject(emulator,
+        //     methodSign,
+        //     10418
+        //     , vm.addLocalObject(new ArrayObject(new ArrayObject(
+        //         new StringObject(vm, strArr[0])),
+        //         new StringObject(vm, "d7b7d042-d4f2-4012-be60-d97ff2429c17"),
+        //         DvmInteger.valueOf(vm, -1),
+        //         DvmBoolean.valueOf(vm, false),
+        //         context,
+        //         null,
+        //            DvmBoolean.valueOf(vm, ),
+        //         new StringObject(vm, "010a11c6-f2cb-4016-887d-0d958aef1534")
+        //     )));
+        //
+        // String retValue = StrUtils.retSaveStr(ret);
+        // //String encode = Base64.encode(retValue);
+        // log.info("_NS_sig3={}", retValue);
+        // return retValue;
     }
 
     public void destroy() throws IOException {
